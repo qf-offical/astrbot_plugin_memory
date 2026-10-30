@@ -1,0 +1,2 @@
+# 本插件只用 Python 标准库，无第三方依赖。
+# 测试需要 pytest：pip install pytest

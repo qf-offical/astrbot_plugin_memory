@@ -1,0 +1,62 @@
+{
+  "enabled": {
+    "type": "bool",
+    "description": "启用记忆插件",
+    "default": true,
+    "hint": "关闭后不再吸收对话，也不再注入记忆。已存的记忆文件保留，重新打开即恢复。"
+  },
+  "working_size": {
+    "type": "int",
+    "description": "短期记忆保留条数",
+    "default": 20,
+    "hint": "每个会话保留最近多少条原始对话。调大更连贯，但占更多上下文。范围 1~200。"
+  },
+  "max_sessions": {
+    "type": "int",
+    "description": "短期最多保留多少个会话",
+    "default": 200,
+    "hint": "短期记忆按会话分开存。会话数很多时（比如机器人进了几百个群），用这个上限控制文件大小。范围 10~5000。"
+  },
+  "episodic_retention_days": {
+    "type": "int",
+    "description": "中期记忆保留天数",
+    "default": 7,
+    "hint": "超过 1 小时的对话会被压成摘要存到中期层，按天数自动清理。范围 1~365。"
+  },
+  "semantic_max_entries": {
+    "type": "int",
+    "description": "长期记忆条数上限",
+    "default": 1000,
+    "hint": "长期事实不自动过期，靠访问热度淘汰最冷的。范围 10~100000。"
+  },
+  "recall_top_n": {
+    "type": "int",
+    "description": "每次注入几条记忆",
+    "default": 3,
+    "hint": "检索命中的前 N 条会注入到系统提示。太多会挤占对话空间。范围 1~10。"
+  },
+  "recall_max_chars": {
+    "type": "int",
+    "description": "注入内容最大字符数",
+    "default": 800,
+    "hint": "超过就截断，保证记忆不会把提示词撑爆。范围 50~4000。"
+  },
+  "inject_header": {
+    "type": "string",
+    "description": "注入块的标题",
+    "default": "【记忆】",
+    "hint": "用来和平台自带的历史区分开，模型能认出这是记忆而不是对话。"
+  },
+  "auto_learn_semantic": {
+    "type": "bool",
+    "description": "自动提炼长期记忆",
+    "default": false,
+    "hint": "开启后，每 10 分钟用模型从近期对话里提炼「值得长期记住的事实」，自动写进长期记忆层。不必再手动发 /记忆 命令。\n\n代价：每 10 分钟多一次模型调用（约 300~600 token）。没配置模型或调用失败时会静默跳过，不影响正常对话。\n\n注意：只提炼「稳定信息」（名字、喜好、约定），一次性的闲聊和情绪不会被记。"
+  },
+  "maintenance_interval_min": {
+    "type": "int",
+    "description": "后台整理间隔（分钟）",
+    "default": 10,
+    "hint": "每隔多久做一次「短期转中期、清理过期、自动提炼长期记忆」。调小更及时但更耗资源；调大更省。范围 1~1440（最长一天）。"
+  }
+}

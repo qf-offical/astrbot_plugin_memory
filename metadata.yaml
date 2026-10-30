@@ -1,0 +1,4 @@
+name: astrbot_plugin_memory
+desc: 三层记忆插件：自动吸收对话、按需检索、注入系统提示
+version: 0.2.0
+author: dafeiyu
